@@ -1,0 +1,34 @@
+<form [formGroup]="productForm" (submit)="submit()">
+  <div class="form-group">
+    <label for="product">Product</label>
+    <input type="text" class="form-control" id="product" name="product" formControlName="product"/>
+    <small class="text-danger" *ngIf="!product.valid && (product.dirty || product.touched)">
+      Input cannot be empty
+    </small>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">
+      Add
+    </button>
+  </div>
+</form>
+
+<hr/>
+
+<div *ngIf="products.length == 0">
+  <p>No products on the list</p>
+</div>
+<div *ngIf="products.length > 0">
+  <ul class="list-group">
+    <li *ngFor="let product of products; let i = index" class="list-group-item">
+      <span class="d-flex justify-content-between align-items-center">
+        <span>{{product}}</span>
+        <span>
+          <button class="btn btn-danger" (click)="deleteProduct(i)">
+            Delete
+          </button>
+        </span>
+      </span>
+    </li>
+  </ul>
+</div>
